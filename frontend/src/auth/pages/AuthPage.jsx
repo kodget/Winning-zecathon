@@ -42,8 +42,10 @@ const AuthPage = () => {
     } else {
       const result = await login(formData);
       if (result.success) {
-        // Redirect to dashboard
-        window.location.href = '/dashboard';
+        // Redirect to marketplace
+        if (window.onLoginSuccess) {
+          window.onLoginSuccess();
+        }
       }
     }
   };

@@ -34,3 +34,7 @@ body {
     stroke-dashoffset: 0;
   }
 }
+
+.invest-button-gradient {
+  background-image: linear-gradient(to right, var(--pulse-cyan), var(--pulse-pink));
+}

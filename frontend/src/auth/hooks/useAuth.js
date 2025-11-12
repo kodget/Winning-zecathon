@@ -19,30 +19,25 @@ export const useAuth = () => {
       return { success: false };
     }
 
+    // Simulate backend API call
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          user_type: 'lender'
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setMessage('Login successful! Redirecting...');
-        return { success: true, data };
-      } else {
-        setErrors({ general: data.message || 'Login failed' });
-        return { success: false };
-      }
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+      
+      // Mock successful login for any valid email/password
+      const mockUser = {
+        id: '1',
+        name: 'Alex Morgan',
+        email: formData.email,
+        user_type: 'lender'
+      };
+      
+      const mockToken = 'mock_jwt_token_' + Date.now();
+      
+      localStorage.setItem('token', mockToken);
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      setMessage('Login successful! Redirecting to marketplace...');
+      
+      return { success: true, data: { token: mockToken, user: mockUser } };
     } catch (error) {
       setErrors({ general: 'Network error. Please try again.' });
       return { success: false };
@@ -62,24 +57,13 @@ export const useAuth = () => {
       return { success: false };
     }
 
+    // Simulate backend API call
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/lender/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage('Account created successfully! Check your email for verification.');
-        return { success: true, data };
-      } else {
-        setErrors({ general: data.message || 'Registration failed' });
-        return { success: false };
-      }
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate network delay
+      
+      // Mock successful registration
+      setMessage('Account created successfully! Please login to continue.');
+      return { success: true, data: { message: 'Registration successful' } };
     } catch (error) {
       setErrors({ general: 'Network error. Please try again.' });
       return { success: false };
@@ -98,24 +82,12 @@ export const useAuth = () => {
       return { success: false };
     }
 
+    // Simulate backend API call
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage('Password reset link sent to your email.');
-        return { success: true };
-      } else {
-        setErrors({ general: data.message || 'Failed to send reset link' });
-        return { success: false };
-      }
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
+      
+      setMessage('Password reset link sent to your email.');
+      return { success: true };
     } catch (error) {
       setErrors({ general: 'Network error. Please try again.' });
       return { success: false };
